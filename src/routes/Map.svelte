@@ -7,11 +7,9 @@
 
     let markerLocations = [];
 	let lastLocationCircle;
+	var lastLocation;
     let map;
     let error = null;
-
-    // vue initiale, centrée sur Romandie
-	const initialView = [46.2967,6.1654]
 
     // marker - source : https://onestepcode.com/leaflet-markers-svg-icons/
 	const svgIcon = L.divIcon({
@@ -33,7 +31,7 @@
 
 	
 	// obtient les coordonnées depuis FastAPI
-	async function init() {
+	async function loadData() {
 		const parseJSON = (resp) => (resp.json ? resp.json() : resp);
 		const checkStatus = (resp) => {
 			if (resp.status >= 200 && resp.status < 300) {
@@ -57,11 +55,8 @@
 
 				let marker = [timestamp, L.latLng(latitude, longitude)]
 
-				
 				markerLocations.push(marker)
 			});
-
-			markerLocations.sort
 
 		} catch (e) {
 			error = e
@@ -70,12 +65,12 @@
     
 	// créer une nouvelle carte
 	function createMap(container) {
-		let m = L.map(container).setView(initialView, 10);
+		let m = L.map(container).setView(lastLocation, 11);
 		
 		L.tileLayer(
 			'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
 			{
-				attribution: `&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a>`,
+				attribution: `&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>`,
 				subdomains: 'abcd',
 				maxZoom: 20,
 				updateWhenZooming: true,
@@ -88,10 +83,13 @@
 
 	// afficher une nouvelle carte avec les markers de position
 	async function mapAction(container) {
-		await init();
+		await loadData();
 
-		map = createMap(container);
+		// obtient la dernière location enregistrée
+		lastLocation = markerLocations[markerLocations.length - 1][1];
         
+		map = createMap(container);
+
 		markerLocations.forEach(element => {
 			L.marker(element[1], { icon: svgIcon }).addTo(map);
 		});
@@ -109,9 +107,6 @@
 			// si oui, le supprime
 			lastLocationCircle.removeFrom(map);
 		}
-
-		// obtient la dernière location enregistrée
-		var lastLocation = markerLocations[markerLocations.length - 1][1];
 
 		lastLocationCircle = L.circle(lastLocation, {radius:30, opacity:0.5});
 
