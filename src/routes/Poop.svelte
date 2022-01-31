@@ -8,4 +8,4 @@
 
 <Map
 	apiQuery='poop'
-	markerColor='brown'/>
+	markerColor='#795548d9'/>
