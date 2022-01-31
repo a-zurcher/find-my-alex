@@ -147,7 +147,7 @@
 
 
 <div id="buttons">
-	<button on:click={flyToLastCoordinates}>Show last known location</button>
+	<button on:click={flyToLastCoordinates}>Show last known {apiQuery}</button>
 </div>
 
 <div id="map" style="flex-grow:1; width=100%;" use:mapAction/>

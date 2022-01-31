@@ -8,4 +8,4 @@
 
 <Map
 	apiQuery='coordinates'
-	markerColor='#007effd9'/>
+	markerColor='#007effbf'/>
