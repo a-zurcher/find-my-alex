@@ -68,11 +68,11 @@
 	nav a {
 		color: var(--link-color);
 		color:white;
-        font-weight: bold;
-        background-color: white;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
+		font-weight: bold;
+		background-color: white;
+		border: none;
+		border-radius: 10px;
+		cursor: pointer;
 		text-decoration:none!important;
 		padding: 3px;
 	}
