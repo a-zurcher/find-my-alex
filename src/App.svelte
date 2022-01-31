@@ -5,10 +5,12 @@
 <script>
 	import Router from "svelte-spa-router";
 	import Sources from "./routes/Sources.svelte";
-	import Map from "./routes/Map.svelte";
+	import Locations from "./routes/Locations.svelte";
+	import Poop from "./routes/Poop.svelte";	
 
 	let routes = {
-		"/": Map,
+		"/": Locations,
+		"/Poop": Poop,
 		"/Sources": Sources
 	}
 </script>
@@ -16,7 +18,8 @@
 <div class="container">
 	<nav>
 		<h1>find my Alex</h1>
-		<a href="/">Map</a>
+		<a href="/#/"><span role="img" aria-label="globe">🌍</span></a>
+		<a href="/#/Poop"><span role="img" aria-label="poop">💩</span></a>
 		<a href="/#/Sources">Sources</a>
 	</nav>
 
@@ -63,9 +66,15 @@
 	}
 
 	nav a {
-		color:var(--link-color);
-		font-size: larger;
-		text-decoration: underline;
+		color: var(--link-color);
+		color:white;
+        font-weight: bold;
+        background-color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+		text-decoration:none!important;
+		padding: 3px;
 	}
 
 	main {
