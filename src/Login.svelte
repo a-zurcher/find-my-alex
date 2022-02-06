@@ -3,7 +3,7 @@
 
     let email: string = "alexandre@zurcher.digital";
     let password: string = "bestpassword";
-    let error;
+    export let error: any = undefined;
 
     const handleLogin = async () => {
         const response = await fetch("https://api.zurcher.digital/user/login", {
@@ -19,6 +19,8 @@
 
         if (parsed.access_token) {
             $authToken = parsed.access_token;
+            location.reload();
+            error = undefined;
         } else {
             error = parsed.detail;
         }
@@ -54,14 +56,10 @@
 
 <style>
     div.popup {
-        position: absolute;
         background: white;
         padding: 1rem;
         border-radius: 10px;
-        max-width: 25rem;
-        left: 0; right: 0; top: 50%;
-        margin: auto;
-        transform: translateY(-50%);
+        max-width: 32rem;
     }
 
     p.title {

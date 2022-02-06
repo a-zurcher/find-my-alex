@@ -18,7 +18,7 @@
 	let lastLocation;
 	let lastLocationCircle;
     let map;
-    let error = null;
+    let error: any;
 
     // marker - source : https://onestepcode.com/leaflet-markers-svg-icons/
 	const svgIcon = L.divIcon({
@@ -128,19 +128,24 @@
 			lastLocationCircle.addTo(map);
 		});
 	}
+
+	window.onstorage = () => {
+		// Lorsque le stockage local change, vider la liste dans
+		// la console.
+		console.log(JSON.parse(window.localStorage.getItem('authToken')));
+	};
 </script>
 
+{#if !error}
+	<div id="buttons">
+		<button on:click={flyToLastCoordinates}>Show last known {apiQuery}</button>
+	</div>
 
-{#if markerLocations == [] || $authToken == undefined}
+	<div id="map" style="flex-grow:1; width=100%;" use:mapAction/>
+{:else}
 	<div class="login">
 		<Login/>
 	</div>
-{:else}
-<div id="buttons">
-	<button on:click={flyToLastCoordinates}>Show last known {apiQuery}</button>
-</div>
-
-<div id="map" style="flex-grow:1; width=100%;" use:mapAction/>
 {/if}
 
 
@@ -162,10 +167,10 @@
 
 	div.login {
 		position: absolute;
-		left: 0;
-		right: 0;
-		height: 50%;
+		left: 0; right: 0; top: 50%;
+		transform: translateY(-50%);
 		margin-inline: auto;
-		width: clamp(22rem, 22rem, 100%);
+		width: clamp(23rem, 23rem, 100%);
+		z-index: 100;
 	}
 </style>
