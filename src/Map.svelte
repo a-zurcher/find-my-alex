@@ -145,6 +145,7 @@
 {/if}
 {/await}
 
+
 <style>
 	#map {
 		height: 100%;

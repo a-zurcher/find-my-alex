@@ -19,7 +19,6 @@
 
         if (parsed.access_token) {
             $authToken = parsed.access_token;
-            error = undefined;
             location.reload();
         } else {
             error = parsed.detail;
