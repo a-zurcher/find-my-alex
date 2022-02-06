@@ -1,7 +1,7 @@
 import { writable } from "svelte/store";
 
 // DEV: deletes localStorage value
-localStorage.removeItem("authToken");
+// localStorage.removeItem("authToken");
 
 // get token from localStorage
 const storedAuthToken = localStorage.getItem("authToken");

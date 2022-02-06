@@ -30,7 +30,7 @@
     <p class="title"><b>Please login to display locations!</b></p>
 
     <form on:submit|preventDefault="{handleLogin}" method="post">
-        <div>
+        <div class="form_input">
             <div>
                 <label for="email">Email</label>
                 <input type="email" bind:value="{email}"/>
@@ -40,9 +40,10 @@
                 <label for="password">Password</label>
                 <input type="password" bind:value="{password}" />
             </div>
+
+            <button class="login" type="submit">Login</button>
         </div>
         
-        <button type="submit">Login</button>
     </form>
 
     {#if error}
@@ -53,24 +54,51 @@
 
 <style>
     div.popup {
+        position: absolute;
         background: white;
         padding: 1rem;
         border-radius: 10px;
+        max-width: 25rem;
+        left: 0; right: 0; top: 50%;
+        margin: auto;
+        transform: translateY(-50%);
     }
 
     p.title {
         margin-top: 0;
     }
 
-    form div {
+    div.form_input {
         display: flex;
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    div.form_input div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    label {
+        width: 6rem;
+        max-width: 100%;
+    }
+
+    input {
+        width: 15rem;
+        max-width: 100%;
     }
 
     p.error {
         color: red!important;
     }
 
-    button {
-        justify-self: flex-end;
+    button.login {
+        width: 4.5rem;
+        margin-right: 0;
+        margin-left: auto;
+        margin-bottom: 0;
     }
 </style>
