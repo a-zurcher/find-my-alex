@@ -1,8 +1,8 @@
 <script lang='ts'>
     import { authToken } from "./stores";
 
-    let email: string = "alexandre@zurcher.digital";
-    let password: string = "bestpassword";
+    let email: string;
+    let password: string;
     export let error: any = undefined;
 
     const handleLogin = async () => {
