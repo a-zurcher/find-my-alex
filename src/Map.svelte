@@ -18,7 +18,6 @@
 	let lastLocation;
 	let lastLocationCircle;
     let map;
-	let initFinished: boolean = false;
     let error: any;
 
     // marker - source : https://onestepcode.com/leaflet-markers-svg-icons/
@@ -75,7 +74,6 @@
 		} catch (e) {
 			error = e
 		}
-		initFinished = true;
 	};
     
 	// créer une nouvelle carte
@@ -132,7 +130,9 @@
 	}
 </script>
 
-{#if initFinished && error != undefined}
+
+{#await init() then}
+{#if error == undefined}
 	<div id="buttons">
 		<button on:click={flyToLastCoordinates}>Show last known {apiQuery}</button>
 	</div>
@@ -143,7 +143,7 @@
 		<Login/>
 	</div>
 {/if}
-
+{/await}
 
 <style>
 	#map {
@@ -166,7 +166,8 @@
 		left: 0; right: 0; top: 50%;
 		transform: translateY(-50%);
 		margin-inline: auto;
-		width: clamp(23rem, 23rem, 100%);
+		max-width: 23rem;
+		padding: 8px;
 		z-index: 100;
 	}
 </style>
