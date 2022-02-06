@@ -2,16 +2,18 @@
 	<title>find my Alex</title>
 </svelte:head>
 
-<script>
+<script lang="ts">
 	import Router from "svelte-spa-router";
 	import Sources from "./routes/Sources.svelte";
 	import Locations from "./routes/Locations.svelte";
-	import Poop from "./routes/Poop.svelte";	
+	import Poop from "./routes/Poop.svelte";
+	import Login from "./Login.svelte";
 
 	let routes = {
 		"/": Locations,
-		"/Poop": Poop,
-		"/Sources": Sources
+		"/poop": Poop,
+		"/sources": Sources,
+		"/login": Login
 	}
 </script>
 

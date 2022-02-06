@@ -2,15 +2,17 @@
 	<title>find my Alex</title>
 </svelte:head>
 
-<script>
+<script lang='ts'>
 	import L from 'leaflet';
 	import 'leaflet/dist/leaflet.css';
+	import Login from './Login.svelte';
+	import { authToken } from './stores';
 
-	//let apiServer = "http://localhost:8000"
-	let apiServer = "https://api.zurcher.digital"
+	//let apiServer: string = "http://localhost:8000";
+	let apiServer: string = "https://api.zurcher.digital";
 
-	export let apiQuery;
-	export let markerColor;
+	export let apiQuery: string;
+	export let markerColor: string;
 
     let markerLocations = [];
 	let lastLocation;
@@ -52,6 +54,7 @@
 		try {
 			const res = await fetch(apiServer + '/' + apiQuery, {
 				method: "GET",
+				headers: {"Authorization": "Bearer " + $authToken},
 			}).then(checkStatus)
 		.then(parseJSON);
 			// les coordonées ne sont pas stockées dans le même ordre pour Redis et Leaflet -> ici latitudes et longitudes sont inversées
@@ -128,6 +131,19 @@
 </script>
 
 
+{#if markerLocations == [] || $authToken == undefined}
+	<div class="login">
+		<Login/>
+	</div>
+{:else}
+<div id="buttons">
+	<button on:click={flyToLastCoordinates}>Show last known {apiQuery}</button>
+</div>
+
+<div id="map" style="flex-grow:1; width=100%;" use:mapAction/>
+{/if}
+
+
 <style>
 	#map {
 		height: 100%;
@@ -143,11 +159,13 @@
 		border-radius: 10px;
 		cursor: pointer;
 	}
+
+	div.login {
+		position: absolute;
+		left: 0;
+		right: 0;
+		height: 50%;
+		margin-inline: auto;
+		width: clamp(22rem, 22rem, 100%);
+	}
 </style>
-
-
-<div id="buttons">
-	<button on:click={flyToLastCoordinates}>Show last known {apiQuery}</button>
-</div>
-
-<div id="map" style="flex-grow:1; width=100%;" use:mapAction/>
