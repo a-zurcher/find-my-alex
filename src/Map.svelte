@@ -18,6 +18,7 @@
 	let lastLocation;
 	let lastLocationCircle;
     let map;
+	let initFinished: boolean = false;
     let error: any;
 
     // marker - source : https://onestepcode.com/leaflet-markers-svg-icons/
@@ -74,6 +75,7 @@
 		} catch (e) {
 			error = e
 		}
+		initFinished = true;
 	};
     
 	// créer une nouvelle carte
@@ -128,15 +130,9 @@
 			lastLocationCircle.addTo(map);
 		});
 	}
-
-	window.onstorage = () => {
-		// Lorsque le stockage local change, vider la liste dans
-		// la console.
-		console.log(JSON.parse(window.localStorage.getItem('authToken')));
-	};
 </script>
 
-{#if !error}
+{#if initFinished && error != undefined}
 	<div id="buttons">
 		<button on:click={flyToLastCoordinates}>Show last known {apiQuery}</button>
 	</div>
