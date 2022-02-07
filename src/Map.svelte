@@ -5,8 +5,9 @@
 <script lang='ts'>
 	import L from 'leaflet';
 	import 'leaflet/dist/leaflet.css';
-	import Login from './Login.svelte';
-	import { authToken } from './stores';
+	import Button from './components/Button.svelte';
+	import Login from './components/Login.svelte';
+	import { authToken, authentificated } from './stores';
 
 	//let apiServer: string = "http://localhost:8000";
 	let apiServer: string = "https://api.zurcher.digital";
@@ -69,10 +70,13 @@
 				markerLocations.push(marker)
 			});
 
-			markerLocations.sort
+			markerLocations.sort;
+
+			authentificated.set(true);
 
 		} catch (e) {
-			error = e
+			error = e;
+			authentificated.set(false);
 		}
 	};
     
@@ -130,11 +134,12 @@
 	}
 </script>
 
-
 {#await init() then}
-{#if error == undefined}
+{#if $authentificated}
 	<div id="buttons">
-		<button on:click={flyToLastCoordinates}>Show last known {apiQuery}</button>
+		<Button
+			buttonAction={flyToLastCoordinates} 
+			buttonText="Show last known {apiQuery}"/>
 	</div>
 
 	<div id="map" style="flex-grow:1; width=100%;" use:mapAction/>
@@ -151,15 +156,6 @@
 		height: 100%;
 		width: 100%;
 		background:white;
-	}
-
-	#buttons button {
-		color:white;
-		font-weight: bold;
-		background-color: var(--button-color);
-		border: none;
-		border-radius: 10px;
-		cursor: pointer;
 	}
 
 	div.login {

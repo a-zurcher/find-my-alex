@@ -1,5 +1,6 @@
 <script lang='ts'>
-    import { authToken } from "./stores";
+    import Button from "./Button.svelte";
+import { authToken } from "../stores";
 
     let email: string;
     let password: string;
@@ -28,21 +29,19 @@
 
 
 <div class="popup">
-    <p class="title"><b>Please login to display locations!</b></p>
-
     <form on:submit|preventDefault="{handleLogin}" method="post">
         <div class="form_input">
             <div>
                 <label for="email">Email</label>
-                <input type="email" bind:value="{email}"/>
+                <input type="email" bind:value="{email}" required/>
             </div>
 
             <div>
                 <label for="password">Password</label>
-                <input type="password" bind:value="{password}" />
+                <input type="password" bind:value="{password}" required/>
             </div>
 
-            <button class="login" type="submit">Login</button>
+            <Button buttonType="submit" buttonText="Login"/>
         </div>
         
     </form>
@@ -61,10 +60,6 @@
         max-width: 32rem;
     }
 
-    p.title {
-        margin-top: 0;
-    }
-
     div.form_input {
         display: flex;
         flex-direction: column;
@@ -75,27 +70,21 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        align-items: baseline;
     }
 
     label {
         width: 6rem;
         max-width: 100%;
+        flex-shrink: 0;
     }
 
     input {
-        width: 15rem;
-        max-width: 100%;
+        width: 100%;
     }
 
     p.error {
         color: red!important;
-    }
-
-    button.login {
-        width: 4.5rem;
-        margin-right: 0;
-        margin-left: auto;
-        margin-bottom: 0;
     }
 </style>

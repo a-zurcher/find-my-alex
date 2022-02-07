@@ -5,3 +5,6 @@ export const authToken = writable(localStorage.getItem("authToken"));
 
 // saves token to localStorage
 authToken.subscribe(value => localStorage.setItem("authToken", value));
+
+
+export const authentificated = writable(false);
