@@ -1,6 +1,6 @@
 <script lang='ts'>
     import Button from "./Button.svelte";
-import { authToken } from "../stores";
+    import { authToken } from "../stores";
 
     let email: string;
     let password: string;
