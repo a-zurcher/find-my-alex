@@ -136,7 +136,7 @@
 
 {#await init() then}
 {#if $authentificated}
-	<div id="buttons">
+	<div class="buttons">
 		<Button
 			buttonAction={flyToLastCoordinates} 
 			buttonText="Show last known {apiQuery}"/>
@@ -157,6 +157,12 @@
 		width: 100%;
 		background:white;
 	}
+
+	div.buttons {
+		width:100%;
+		max-width: var(--max-width);
+		left: 0; right: 0; margin: auto;
+	} 
 
 	div.login {
 		position: absolute;

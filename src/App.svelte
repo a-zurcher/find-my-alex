@@ -47,6 +47,7 @@
 		--text-color: #140176;
 		--link-color: #3f62ec;
 		--button-color: #007eff;
+		--max-width: 86rem;
 	}
 
 	:global(html) {
@@ -73,6 +74,10 @@
 		align-items: baseline;
 		flex-wrap: wrap;
 		gap: 1rem;
+
+		max-width: var(--max-width);
+		width: 100%;
+		left: 0; right: 0; margin-inline: auto;
 	}
 
 	nav h1 {
