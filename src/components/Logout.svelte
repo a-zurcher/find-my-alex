@@ -1,10 +1,10 @@
 <script>
-import Button from "./Button.svelte";
+    import Button from "./Button.svelte";
 
     function logout() {
-		localStorage.removeItem("authToken");
-        location.reload();
-	}
+	localStorage.removeItem("authToken");
+	location.reload();
+    }
 </script>
 
 <Button
